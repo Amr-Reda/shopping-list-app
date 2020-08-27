@@ -57,9 +57,19 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
-        
+        const isDeleted = await Product.findByIdAndDelete(req.params.id)
+        if (!isDeleted) {
+            return res
+                .status(404)
+                .json({ message: 'product not found' });
+        }
+        return res
+            .status(200)
+            .json({ message: 'product deleted successfully' });
     } catch (error) {
-        
+        return res
+            .status(500)
+            .json({ message: 'Internal Server Error', data: error.message });
     }
 };
 
