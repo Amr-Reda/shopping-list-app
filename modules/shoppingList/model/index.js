@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const ShoppingListSchema = new Schema(
 	{
+		userIP: { type: String, required: true },
 		products: {
 			type: [
 				{
