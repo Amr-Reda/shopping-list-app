@@ -36,9 +36,22 @@ const getAllProducts = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
-        
+        const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true,
+        })
+        if (!product) {
+            return res
+                .status(404)
+                .json({ message: 'product not found' });
+        }
+        return res
+            .status(200)
+            .json({ message: 'product updated successfully', product });
     } catch (error) {
-        
+        return res
+            .status(500)
+            .json({ message: 'Internal Server Error', data: error.message });
     }
 };
 
