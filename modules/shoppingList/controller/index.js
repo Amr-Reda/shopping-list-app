@@ -24,12 +24,13 @@ const createShoppingList = async (req, res) => {
 const getShoppingList = async (req, res) => {
     try {
         const userIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        const shoppingList = await ShoppingList.findOne({ userIP })
+        let shoppingList = await ShoppingList.findOne({ userIP })
         if (!shoppingList) {
             return res
             .status(404)
             .json({ message: 'you don\'t have shopping list please create one' });
         }
+        shoppingList = await shoppingList.calculateTotalPriceAndUpdateProducts()
         return res
             .status(200)
             .json({ message: 'shopping list loaded successfully', shoppingList });
@@ -77,7 +78,7 @@ const addProductToShoppingList = async (req, res) => {
             quantity: product.quantity - req.body.quantity
         })
         //update shopping list
-        const shoppingList = await ShoppingList.findByIdAndUpdate(req.body.shoppingListId, {
+        let shoppingList = await ShoppingList.findByIdAndUpdate(req.body.shoppingListId, {
             $push: { products: {
                 productId: req.body.productId,
                 productName: req.body.productName,
@@ -87,7 +88,7 @@ const addProductToShoppingList = async (req, res) => {
             new: true,
             runValidators: true,
         })
-
+        shoppingList = await shoppingList.calculateTotalPriceAndUpdateProducts()
         return res
             .status(200)
             .json({ message: 'shopping list updated successfully', shoppingList });
@@ -108,7 +109,7 @@ const removeProductFromShoppingList = async (req, res) => {
             .status(403)
             .json({ message: 'product not found in shopping list' });
         }
-        const shoppingList = await ShoppingList.findByIdAndUpdate(req.body.shoppingListId, {
+        let shoppingList = await ShoppingList.findByIdAndUpdate(req.body.shoppingListId, {
             $pull: { products: {
                 productId: req.body.productId
             } }
@@ -121,6 +122,7 @@ const removeProductFromShoppingList = async (req, res) => {
                 .status(404)
                 .json({ message: 'shopping list not found' });
         }
+        shoppingList = await shoppingList.calculateTotalPriceAndUpdateProducts()
         return res
             .status(200)
             .json({ message: 'product deleted successfully from shopping list', shoppingList });
