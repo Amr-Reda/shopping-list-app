@@ -1,7 +1,0 @@
-[
-	{ "id": 1, "name": "milk", "quantity": 5, "price": 10 },
-	{ "id": 2, "name": "egg", "quantity": 25, "price": 2 },
-	{ "id": 3, "name": "rice", "quantity": 12, "price": 17 },
-	{ "id": 4, "name": "water", "quantity": 3, "price": 5 },
-	{ "id": 5, "name": "cheese", "quantity": 0, "price": 15 }
-]
