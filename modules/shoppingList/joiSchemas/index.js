@@ -3,6 +3,7 @@ const Joi = require('@hapi/joi');
 module.exports = {
 	addProductToShoppingListSchema: {
 		body: Joi.object().required().keys({
+			shoppingListId: Joi.string().required(),
 			productId: Joi.string().required(),
 			productName: Joi.string().required(),
 			quantity: Joi.number().positive().required(),

@@ -1,4 +1,5 @@
 const ShoppingList = require('../model');
+const Product = require('../../product/model');
 
 const createShoppingList = async (req, res) => {
     try {
@@ -41,7 +42,55 @@ const getShoppingList = async (req, res) => {
 
 const addProductToShoppingList = async (req, res) => {
     try {
-        
+        //check for shopping list exist
+        const isShoppingListExist = await ShoppingList.findById(req.body.shoppingListId)
+        if (!isShoppingListExist) {
+            return res
+            .status(404)
+            .json({ message: 'shopping list not found' });
+        }
+        //check for product exist
+        const product = await Product.findById(req.body.productId)
+        if (!product) {
+            return res
+            .status(404)
+            .json({ message: 'product not found' });
+        }
+        //check for quantity
+        if (product.quantity - req.body.quantity < 0) {
+            return res
+            .status(403)
+            .json({ message: 'not enough quantity available' });
+        }
+        //check for product exist in the shopping list
+        const isProductExistInShoppingList = await ShoppingList.findOne({
+            id: req.body.shoppingListId,
+            products: { productId: req.body.productId }
+        })
+        if (isProductExistInShoppingList) {
+            return res
+            .status(403)
+            .json({ message: 'product already exist in the shopping list' });
+        }
+        //deduct product quantity
+        await Product.findByIdAndUpdate(req.body.productId, {
+            quantity: product.quantity - req.body.quantity
+        })
+        //update shopping list
+        const shoppingList = await Product.findByIdAndUpdate(req.body.shoppingListId, {
+            $push: { products: {
+                productId: req.body.productId,
+                productName: req.body.productName,
+                quantity: req.body.quantity
+            } }
+        },{
+            new: true,
+            runValidators: true,
+        })
+
+        return res
+            .status(200)
+            .json({ message: 'shopping list updated successfully', shoppingList });
     } catch (error) {
         
     }
