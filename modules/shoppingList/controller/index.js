@@ -77,7 +77,7 @@ const addProductToShoppingList = async (req, res) => {
             quantity: product.quantity - req.body.quantity
         })
         //update shopping list
-        const shoppingList = await Product.findByIdAndUpdate(req.body.shoppingListId, {
+        const shoppingList = await ShoppingList.findByIdAndUpdate(req.body.shoppingListId, {
             $push: { products: {
                 productId: req.body.productId,
                 productName: req.body.productName,
@@ -98,9 +98,26 @@ const addProductToShoppingList = async (req, res) => {
 
 const removeProductFromShoppingList = async (req, res) => {
     try {
-        
+        const isDeleted = await ShoppingList.findByIdAndUpdate(req.body.shoppingListId, {
+            $pull: { products: {
+                productId: req.body.productId
+            } }
+        },{
+            new: true,
+            runValidators: true,
+        })
+        if (!isDeleted) {
+            return res
+                .status(404)
+                .json({ message: 'product not found in shopping list' });
+        }
+        return res
+            .status(200)
+            .json({ message: 'product deleted successfully from shopping list' });
     } catch (error) {
-        
+        return res
+            .status(500)
+            .json({ message: 'Internal Server Error', data: error.message });
     }
 };
 
