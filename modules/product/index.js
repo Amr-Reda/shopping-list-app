@@ -16,16 +16,18 @@ router.get(
 
 router.post(
     '/',
+    validateRequest(createProductShema),
     createProduct
 );
 
 router.put(
-    '/',
+    '/:id',
+    validateRequest(updateProductSchema),
     updateProduct
 );
 
 router.delete(
-    '/',
+    '/:id',
     deleteProduct
 );
 
