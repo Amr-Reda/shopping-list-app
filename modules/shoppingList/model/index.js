@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const ShoppingListSchema = new Schema(
 	{
-		userIP: { type: String, required: true },
+		userIP: { type: String, unique: true, required: true },
 		products: {
 			type: [
 				{
