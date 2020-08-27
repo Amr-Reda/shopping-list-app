@@ -3,9 +3,14 @@ const PAGE_LIMIT = 10;
 
 const createProduct = async (req, res) => {
     try {
-        
+        const product = await Product.create(req.body)
+        return res
+            .status(201)
+            .json({ message: 'product created successfully', product });
     } catch (error) {
-        
+        return res
+            .status(500)
+            .json({ message: 'Internal Server Error', data: error.message });
     }
 };
 
