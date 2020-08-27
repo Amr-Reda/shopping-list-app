@@ -3,10 +3,15 @@ const router = express.Router();
 const validateRequest  = require('../../middlewares/validateRequest');
 
 const {
+    addProductToShoppingListSchema,
+    removeProductFromShoppingListSchema
+} = require('./joiSchemas');
+
+const {
     getShoppingList,
     createShoppingList,
     addProductToShoppingList,
-    removeProductToShoppingList
+    removeProductFromShoppingList
 } = require('./controller');
 
 router.get(
@@ -21,12 +26,14 @@ router.post(
 
 router.post(
     '/product',
+    validateRequest(addProductToShoppingListSchema),
     addProductToShoppingList
 );
 
 router.delete(
     '/product',
-    removeProductToShoppingList
+    validateRequest(removeProductFromShoppingListSchema),
+    removeProductFromShoppingList
 );
 
 module.exports = router;

@@ -24,7 +24,7 @@ const addProductToShoppingList = async (req, res) => {
     }
 };
 
-const removeProductToShoppingList = async (req, res) => {
+const removeProductFromShoppingList = async (req, res) => {
     try {
         
     } catch (error) {
@@ -36,5 +36,5 @@ module.exports = {
     createShoppingList,
     getShoppingList,
     addProductToShoppingList,
-    removeProductToShoppingList
+    removeProductFromShoppingList
 };

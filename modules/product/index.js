@@ -3,6 +3,11 @@ const router = express.Router();
 const validateRequest  = require('../../middlewares/validateRequest');
 
 const {
+    createProductShema,
+    updateProductSchema
+} = require('./joiSchemas');
+
+const {
     createProduct,
     getAllProducts,
     updateProduct,
