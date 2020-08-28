@@ -93,7 +93,9 @@ const addProductToShoppingList = async (req, res) => {
             .status(200)
             .json({ message: 'shopping list updated successfully', shoppingList });
     } catch (error) {
-        
+        return res
+            .status(500)
+            .json({ message: 'Internal Server Error', data: error.message });
     }
 };
 
