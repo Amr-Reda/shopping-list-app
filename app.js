@@ -25,8 +25,8 @@ initDB()
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.listen(8000, () => {
+app.listen(process.env.PORT, () => {
   console.log(
-    `app is up & running on port ${8000}`
+    `app is up & running on port ${process.env.PORT}`
   );
 });
