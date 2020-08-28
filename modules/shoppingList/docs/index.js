@@ -73,7 +73,7 @@ module.exports = {
 		},
 		delete: {
 			tags: ['shoppingList'],
-			summary: 'delete product to shopping list',
+			summary: 'delete product from shopping list',
 			responses: {
 				200: {
 					description: 'OK',
