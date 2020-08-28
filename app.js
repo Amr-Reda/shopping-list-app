@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const initRoutes = require('./routes');
 const initDB = require('./db');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger');
 
 // Express App
 const app = express();
@@ -10,6 +12,7 @@ const app = express();
 /**
  * Middleware section
  */
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Parse application/json
 app.use(bodyParser.json({ limit: '50mb' }));
 // Parse application/x-www-form-urlencoded

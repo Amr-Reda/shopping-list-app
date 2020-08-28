@@ -8,3 +8,5 @@ A simple application that will store a shopping list from list of products
 2. Copy `.env.example` content into `.env` file and add the values for each variable.
 3. Run `npm install` to Install the node_modules in the package.json.
 4. Run `npm start` to start the project and it will listen to port 8000.
+
+NOTE: every uniqe ip address has only one shopping list.
