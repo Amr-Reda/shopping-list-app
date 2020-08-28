@@ -1,6 +1,6 @@
 # Shopping List APP
 
-A simple application that will store a shopping list from list of products
+A simple application that will store a shopping list from list of products. [check demo](https://shopping-list-d3as5.herokuapp.com/)
 
 ## Installation
 
