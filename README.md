@@ -11,7 +11,7 @@ A simple application that will store a shopping list from list of products
 
 ## API Documentation
 
-- if you running app locally open `http://localhost:8000/`.
+- If you running app locally open `http://localhost:8000/`.
 
 
 NOTE: every ip address has only one shopping list.
