@@ -14,4 +14,4 @@ A simple application that will store a shopping list from list of products
 - if you running app locally open `http://localhost:8000/docs/`.
 
 
-NOTE: every uniqe ip address has only one shopping list.
+NOTE: every ip address has only one shopping list.
