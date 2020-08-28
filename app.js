@@ -12,7 +12,6 @@ const app = express();
 /**
  * Middleware section
  */
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Parse application/json
 app.use(bodyParser.json({ limit: '50mb' }));
 // Parse application/x-www-form-urlencoded
@@ -23,6 +22,8 @@ initRoutes(app);
 
 // Initialize app database
 initDB()
+
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(8000, () => {
   console.log(
